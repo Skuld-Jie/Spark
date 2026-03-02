@@ -1,7 +1,34 @@
 @echo off
-echo 正在同步笔记到GitHub...
+chcp 65001 >nul
+echo ====================================
+echo    Sync Notes to GitHub
+echo ====================================
+echo.
+
+echo Current status:
+git status
+
+echo.
+set /p commit_msg=Enter commit message: 
+
+if "%commit_msg%"=="" (
+    echo Error: Commit message cannot be empty!
+    pause
+    exit /b 1
+)
+
+echo.
+echo Adding files...
 git add .
-git commit -m "更新笔记: %date% %time%"
+
+echo Committing changes...
+git commit -m "%commit_msg%"
+
+echo Pushing to GitHub...
 git push
-echo 同步完成！
+
+echo.
+echo ====================================
+echo    Sync Completed Successfully!
+echo ====================================
 pause
